@@ -4,7 +4,7 @@
 
 def pascal_triangle(n):
     '''Creates a list of lists of
-    the Pascal's triangle.
+    the Pascal's triangle of n size
     '''
     if n <= 0 or type(n) is not int:
         return []
