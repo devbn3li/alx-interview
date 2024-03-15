@@ -1,28 +1,23 @@
 def canUnlockAll(boxes):
-    if not boxes:
+    if len(boxes) == 0:
         return False
 
-    n = len(boxes)
-    visited = [False] * n
-    visited[0] = True
+    # Initialize a set to keep track of visited boxes
+    visited = set()
+    # Initialize a queue for BFS
     queue = [0]
 
     while queue:
+        # Pop the first box from the queue
         current_box = queue.pop(0)
+        # Mark the current box as visited
+        visited.add(current_box)
+
+        # Check all the keys in the current box
         for key in boxes[current_box]:
-            if 0 <= key < n and not visited[key]:
-                visited[key] = True
+            # If the key opens a new box and that box has not been visited yet, add it to the queue
+            if key < len(boxes) and key not in visited:
                 queue.append(key)
 
-    return all(visited)
-
-
-# Test cases
-boxes1 = [[1], [2], [3], [4], []]
-print(canUnlockAll(boxes1))  # True
-
-boxes2 = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-print(canUnlockAll(boxes2))  # True
-
-boxes3 = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-print(canUnlockAll(boxes3))  # False
+    # If all boxes have been visited, return True, otherwise, return False
+    return len(visited) == len(boxes)
